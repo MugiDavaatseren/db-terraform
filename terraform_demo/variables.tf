@@ -76,5 +76,19 @@ variable "databases" {
     user     : string
     password : string
   }))
-  default = []
+}
+
+variable "ip_addresses" {
+  description = "List of IP addresses to allow access to the Airflow web server"
+  type        = list(string)
+}
+
+variable "create_database" {
+  description = "Flag to create a database"
+  type        = bool
+}
+
+variable "create_airflow" {
+  description = "Flag to create a airflow"
+  type        = bool
 }
