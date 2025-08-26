@@ -1,6 +1,6 @@
 environment = "dev"
 project = "data-lake"
-instance_type = "t3.micro"
+instance_type = "t3.medium"
 bucket_name = "mugi"
 aws_region = "ap-southeast-2"
 

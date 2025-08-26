@@ -34,7 +34,6 @@ resource "aws_security_group" "sg_postgres" {
   }
 }
 
-
 resource "aws_security_group" "sg" {
   name        = "${local.name}-ssh-sg"
   description = "inbound and outbound rules"
