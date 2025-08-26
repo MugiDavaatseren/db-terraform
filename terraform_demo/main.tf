@@ -83,7 +83,7 @@ module "ec2-airflow" {
 
   private_ip      = var.ip_addresses[1]
 
-   user_data = <<-EOF
+  user_data = <<-EOF
     #!/usr/bin/env bash
     set -euxo pipefail
 
@@ -108,6 +108,10 @@ module "ec2-airflow" {
         'apache-airflow-providers-dbt-cloud' \
         'apache-airflow-providers-common-sql' \
         'apache-airflow-providers-standard' \
+        'apache-airflow-providers-amazon' \
+        'apache-airflow-providers-postgres' \
+        'pandas' \
+        'sqlalchemy' \
          --constraint 'https://raw.githubusercontent.com/apache/airflow/constraints-2.9.2/constraints-3.11.txt'"
 
     # Redis
@@ -212,9 +216,12 @@ module "ec2-airflow" {
     systemctl start airflow-scheduler
     sleep 5
     systemctl start airflow-worker
+
+
+    sudo -u airflow aws s3 sync s3://${module.code_bucket.name}/dags/ /home/airflow/airflow/dags --delete
+
   EOF
 }
-
 
 
 module "code_bucket" {
