@@ -1,7 +1,7 @@
 variable project {
   description = "The project name for tagging"
   type        = string
-  default     = "bootcampmd"
+  default     = "bootcamp"
 }
 
 variable environment {
@@ -13,6 +13,7 @@ variable environment {
 variable instance_type {
   description = "The type of EC2 instance to create"
   type        = string
+  default     = "t2.micro"
 }
 
 variable bucket_name {
@@ -24,6 +25,7 @@ variable aws_region {
   type        = string
   description = "AWS region to deploy resources"
 }
+
 variable airflow_admin_user {
   description = "The Airflow admin user name"
   type        = string
@@ -33,7 +35,6 @@ variable airflow_admin_pass {
   description = "The Airflow admin user password"
   type        = string
 }
-
 
 variable dbt_container_image {
   description = "The Docker image for the dbt container"
@@ -52,8 +53,6 @@ variable dbt_memory {
   default     = 4096
 }
 
-
-
 variable "csv_objects" {
   type = map(string)
   description = "e.g., { 'customer.csv' = '/abs/path/customer.csv', ... }"
@@ -62,11 +61,6 @@ variable "csv_objects" {
 variable "python_objects" {
   type = map(string)
   description = "e.g., { 'customer.csv' = '/abs/path/customer.csv', ... }"
-}
-variable "key_name" {
-  description = "Name of the SSH key pair to use for EC2"
-  type        = string
-  default     = null
 }
 
 variable "databases" {

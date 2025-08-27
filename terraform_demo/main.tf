@@ -11,29 +11,28 @@ terraform {
 provider "aws" {
   region = "ap-southeast-2"
 }
-
 # create_database = true => 1
 # create_database = false => 0
 # 1 create database
 # 0 destroy
 # example: if 1=1 ? equal : not equal
-
 module "ec2-datatabase" {
   count           = var.create_database ? 1 : 0
   source          = "./modules/ec2_instance"
   project         = var.project
   environment     = var.environment
   instance_type   = var.instance_type
+  role_name       = "ec2-database"
   subnet_id       = module.network.public_subnet_ids[0]
   vpc_id          = module.network.vpc_id
   security_group_ids = [aws_security_group.sg_postgres.id, aws_security_group.sg.id]
-  role_name       = "ec2-database"
   airflow_logs_bucket = ""
   airflow_admin_user = ""
   airflow_admin_pass = ""
   airflow_dags_bucket = ""
+
   private_ip      = var.ip_addresses[0]
-  
+
   user_data = <<-EOF
     #!/usr/bin/env bash
     set -euxo pipefail
@@ -59,8 +58,6 @@ module "ec2-datatabase" {
     SQL
   EOF
 }
-
-
 
 module "ec2-airflow" {
   count           = var.create_airflow ? 1 : 0
@@ -223,7 +220,6 @@ module "ec2-airflow" {
   EOF
 }
 
-
 module "code_bucket" {
   source      = "./modules/s3_bucket"
   project     = var.project
@@ -239,15 +235,17 @@ module "data_bucket" {
 }
 
 module "batch" {
-  source                 = "./modules/batch"
-  project                = var.project
-  environment            = var.environment
-  vpc_id                 = module.network.vpc_id   # "vpc-0050952f5c44ed5fe"
-  private_subnet_ids     = module.network.public_subnet_ids  # ["subnet-0b03f4786e476b378", "subnet-06736963490685074","subnet-092b7a7588460e249"]
-  dbt_container_image    = var.dbt_container_image
-  dbt_vcpu               = var.dbt_vcpu
-  dbt_memory             = var.dbt_memory
-  aws_region             = var.aws_region
+  source                  = "./modules/batch"
+  project                 = var.project
+  environment             = var.environment
+  vpc_id                  = module.network.vpc_id
+  private_subnet_ids      = module.network.private_subnet_ids
+  dbt_container_image     = var.dbt_container_image
+  dbt_vcpu                = var.dbt_vcpu
+  dbt_memory              = var.dbt_memory
+  aws_region              = var.aws_region
+  private_route_table_ids = module.network.private_route_table_ids
+  depends_on              = [module.network]
 }
 
 module "network" {
@@ -257,3 +255,18 @@ module "network" {
   region      = var.aws_region
 }
 
+# module "ec2_instance" {
+#   source  = "git::https://github.com/terraform-aws-modules/terraform-aws-ec2-instance.git?ref=v5.8.0"
+
+#   name = "single-instance"
+
+#   instance_type = "t2.micro"
+#   key_name      = "demo-key"
+#   monitoring    = true
+#   subnet_id     = "subnet-0b03f4786e476b378"
+
+#   tags = {
+#     Terraform   = "true"
+#     Environment = "dev"
+#   }
+# }
