@@ -6,10 +6,8 @@ aws_region = "ap-southeast-2"
 
 airflow_admin_user = "mugi"
 airflow_admin_pass = "mugi0567"
-key_name           = "demo-key"
 
-dbt_container_image = "croixbleueqc/dbt:latest"
-
+dbt_container_image = "324037302945.dkr.ecr.ap-southeast-2.amazonaws.com/dbt:latest"
 
 csv_objects = {
   "customers/customers.csv" = "../dataset/customers.csv",
@@ -33,3 +31,5 @@ ip_addresses = [
     "10.20.1.50",
     "10.20.1.51"
 ]
+
+glue_db_name = ["raw", "clean"]

@@ -1,3 +1,4 @@
+
 resource "aws_iam_role" "role" {
   name = "${var.role_name}-role"
   assume_role_policy = jsonencode({
@@ -24,7 +25,7 @@ resource "aws_iam_role_policy" "s3_logs_rw" {
   name   = "airflow-s3-logs-rw"
   role   = aws_iam_role.role.id
   policy = jsonencode({
-  Version="2012-10-17",
+    Version="2012-10-17",
     Statement=[{
       Effect="Allow",
       Action=[

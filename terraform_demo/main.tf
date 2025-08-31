@@ -1,3 +1,4 @@
+
 terraform {
   required_version = ">= 1.5.0"
   required_providers {
@@ -260,7 +261,7 @@ module "network" {
 
 #   name = "single-instance"
 
-#   instance_type = "t2.micro"
+#   instance_type = "c7i-flex.large"
 #   key_name      = "demo-key"
 #   monitoring    = true
 #   subnet_id     = "subnet-0b03f4786e476b378"

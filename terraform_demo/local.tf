@@ -2,6 +2,9 @@
 locals {
   name = "${var.project}-${var.environment}"
 
+raw_uri = "s3://${module.data_bucket.bucket_name}/raw/"
+clean_uri = "s3://${module.data_bucket.bucket_name}/clean/"
+
   db_bootstrap_sql = join("\n\n", [
     for db in var.databases : <<-SQL
       CREATE DATABASE ${db.name};

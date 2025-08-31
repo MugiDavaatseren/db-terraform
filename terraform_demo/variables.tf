@@ -13,7 +13,7 @@ variable environment {
 variable instance_type {
   description = "The type of EC2 instance to create"
   type        = string
-  default     = "t2.micro"
+  default     = "c7i-flex.large"
 }
 
 variable bucket_name {
@@ -85,4 +85,9 @@ variable "create_database" {
 variable "create_airflow" {
   description = "Flag to create a airflow"
   type        = bool
+}
+
+variable glue_db_name {
+  description = "The name of the Glue database"
+  type        = list
 }
