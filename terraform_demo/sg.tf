@@ -15,7 +15,6 @@ resource "aws_security_group" "sg_airflow" {
   }
 
   
-
   tags = {
     Name = "${local.name}-airflow-sg"
   }
@@ -37,7 +36,6 @@ resource "aws_security_group" "sg_postgres" {
   }
 
   
-
   tags = {
     Name = "${local.name}-postgres-sg"
   }
