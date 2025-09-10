@@ -4,6 +4,8 @@ locals {
 
 raw_uri = "s3://${module.data_bucket.bucket_name}/raw/"
 clean_uri = "s3://${module.data_bucket.bucket_name}/clean/"
+warehouse_uri = "s3://${module.data_bucket.bucket_name}/warehouse/"
+mart_uri = "s3://${module.data_bucket.bucket_name}/mart/"
 
   db_bootstrap_sql = join("\n\n", [
     for db in var.databases : <<-SQL
