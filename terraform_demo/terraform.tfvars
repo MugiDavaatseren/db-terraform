@@ -7,7 +7,8 @@ aws_region = "ap-southeast-2"
 airflow_admin_user = "mugi"
 airflow_admin_pass = "mugi0567"
 
-dbt_container_image = "324037302945.dkr.ecr.ap-southeast-2.amazonaws.com/dbt:latest"
+dbt_container_image = "054579817456.dkr.ecr.ap-southeast-2.amazonaws.com/dbt:latest"
+
 csv_objects = {
   "customers/customers.csv" = "../dataset/customers.csv",
   "accounts/accounts.csv" = "../dataset/accounts.csv",
