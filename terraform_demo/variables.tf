@@ -98,7 +98,8 @@ variable "ssh_private_key" {
   sensitive   = true  # Marks as sensitive to hide in logs
 }
 
-variable deploy_dags {
+variable "deploy_dags" {
   description = "Flag to deploy DAGs to the Airflow instance"
   type        = bool
+  default     = true
 }
